@@ -47,17 +47,6 @@ public:
         bAnimationComplete = false;
     }
     
-    void initTimer(int timeTotalMs) {
-        this->timeTotalMs = timeTotalMs;
-        timeStartMs = ofGetElapsedTimeMillis();
-        if(bAnimating) {
-            progress = 1 - progress;
-            timeStartMs -= timeTotalMs * progress;
-        } else {
-            progress = 0;
-        }
-    }
-    
     void update() {
         if(bAnimating) {
             if(bAnimationComplete) {
@@ -91,10 +80,27 @@ public:
     }
     
     float getProgress() {
+        if(bAnimatingIn) {
+            return progress;
+        }
+        if(bAnimatingOut) {
+            return 1 - progress;
+        }
         return progress;
     }
     
 protected:
+    
+    void initTimer(int timeTotalMs) {
+        this->timeTotalMs = timeTotalMs;
+        timeStartMs = ofGetElapsedTimeMillis();
+        if(bAnimating) {
+            progress = 1 - progress;
+            timeStartMs -= timeTotalMs * progress;
+        } else {
+            progress = 0;
+        }
+    }
     
     int timeStartMs;
     int timeTotalMs;
