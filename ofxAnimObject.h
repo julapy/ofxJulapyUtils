@@ -50,7 +50,7 @@ public:
     void initTimer(int timeTotalMs) {
         this->timeTotalMs = timeTotalMs;
         timeStartMs = ofGetElapsedTimeMillis();
-        if(timeTotalMs) {
+        if(bAnimating) {
             progress = 1 - progress;
             timeStartMs -= timeTotalMs * progress;
         } else {
