@@ -17,7 +17,7 @@ public:
         startTimeMs = 0;
         delayTimeMs = 0;
         bReady = false;
-        bComplete = false;
+        bComplete = true;
     }
     
     void pulse(float pulseValue, float pulseDecay, int delayTimeMs=0) {
