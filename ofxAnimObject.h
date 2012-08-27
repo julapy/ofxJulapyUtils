@@ -19,6 +19,7 @@ public:
         bAnimatingIn = false;
         bAnimatingOut = false;
         bAnimationComplete = false;
+        bAnimationCompleteOnLastUpdate = false;
     }
     
     void animateIn(int timeTotalMs) {
@@ -32,6 +33,7 @@ public:
         bAnimatingIn = true;
         bAnimatingOut = false;
         bAnimationComplete = false;
+        bAnimationCompleteOnLastUpdate =false;
     }
     
     void animateOut(int timeTotalMs) {
@@ -45,12 +47,14 @@ public:
         bAnimatingIn = false;
         bAnimatingOut = true;
         bAnimationComplete = false;
+        bAnimationCompleteOnLastUpdate = false;
     }
     
     void update() {
         if(bAnimating) {
             if(bAnimationComplete) {
                 bAnimating = false;
+                bAnimationCompleteOnLastUpdate = false;
                 return;
             }
             
@@ -59,6 +63,7 @@ public:
             bAnimationComplete = progress >= 1.0;
             if(bAnimationComplete) {
                 progress = 1.0;
+                bAnimationCompleteOnLastUpdate = true;
             }
         }
     }
@@ -68,15 +73,27 @@ public:
     }
     
     bool isAnimatingIn() {
-        return bAnimatingIn;
+        return bAnimatingIn && !bAnimationComplete;
     }
-
+    
     bool isAnimatingOut() {
-        return bAnimatingOut;
+        return bAnimatingOut && !bAnimationComplete;
     }
     
     bool isAnimationComplete() {
         return bAnimationComplete;
+    }
+    
+    bool hasJustFinishedAnimatingIn() {
+        return bAnimatingIn && bAnimationCompleteOnLastUpdate;
+    }
+
+    bool hasJustFinishedAnimatingOut() {
+        return bAnimatingOut && bAnimationCompleteOnLastUpdate;
+    }
+    
+    bool hasJustFinishedAnimating() {
+        return bAnimationCompleteOnLastUpdate;
     }
     
     float getProgress() {
@@ -109,4 +126,5 @@ protected:
     bool bAnimatingIn;
     bool bAnimatingOut;
     bool bAnimationComplete;
+    bool bAnimationCompleteOnLastUpdate;
 };
