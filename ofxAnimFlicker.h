@@ -14,7 +14,10 @@ public:
     ofxAnimFlicker() {
         timeStartMs = 0;
         timeTotalMs = 0;
+        timeIntervalMs = 0;
+        timeFlickerMs = 0;
         bComplete = true;
+        bFlickerOn = true;
     }
     
     void flicker(int timeIntervalMs, int timeTotalMs) {
@@ -39,7 +42,7 @@ public:
         
         int nextMs = timeFlickerMs + timeIntervalMs;
         if(timeMs >= nextMs){
-            timeStartMs = nextMs;
+            timeFlickerMs = nextMs;
             bFlickerOn = !bFlickerOn;
         }
     }
@@ -57,7 +60,7 @@ protected:
     int timeStartMs;
     int timeTotalMs;
     int timeIntervalMs;
-    int timeFlickerMs
+    int timeFlickerMs;
     bool bFlickerOn;
     bool bComplete;
     
