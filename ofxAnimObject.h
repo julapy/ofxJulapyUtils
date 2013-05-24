@@ -59,7 +59,11 @@ public:
             }
             
             int timeMs = ofGetElapsedTimeMillis();
-            progress = (timeMs - timeStartMs) / (float)timeTotalMs;
+            if(timeTotalMs > 0) {
+                progress = (timeMs - timeStartMs) / (float)timeTotalMs;
+            } else {
+                progress = 1;
+            }
             bAnimationComplete = progress >= 1.0;
             if(bAnimationComplete) {
                 progress = 1.0;
