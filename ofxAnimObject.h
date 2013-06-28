@@ -12,6 +12,10 @@ class ofxAnimObject {
 public:
     
     ofxAnimObject() {
+        reset();
+    }
+    
+    void reset() {
         timeStartMs = 0;
         timeTotalMs = 0;
         progress = 0;
