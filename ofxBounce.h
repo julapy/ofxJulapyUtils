@@ -1,14 +1,11 @@
 /*
  *  ofxBounce.h
- *  julapy_sydfest
- *
  *  Created by lukasz karluk on 5/01/10.
- *  Copyright 2010 __MyCompanyName__. All rights reserved.
- *
  */
 
 #pragma once
 
+//-----------------------------------------
 class ofxBounce {
     
 public:
@@ -78,3 +75,64 @@ private:
     float v;  // velocity.
     
 };
+
+//-----------------------------------------
+class ofxBounce2D {
+    
+public:
+    
+    void update() {
+        bounceX.update();
+        bounceY.update();
+    };
+    
+    void springconst(float value) {
+        bounceX.springconst(value);
+        bounceY.springconst(value);
+    };
+    
+    float springconst() {
+        return bounceX.springconst();
+    };
+    
+    void inertia(float value) {
+        bounceX.inertia(value);
+        bounceY.inertia(value);
+    };
+    
+    float inertia() {
+        return bounceX.inertia();
+    };
+    
+    void center(ofVec2f value) {
+        bounceX.center(value.x);
+        bounceY.center(value.y);
+    };
+    
+    ofVec2f center() {
+        return ofVec2f(bounceX.center(), bounceY.center());
+    };
+    
+    void position(ofVec2f value) {
+        bounceX.position(value.x);
+        bounceY.position(value.y);
+    };
+    
+    ofVec2f position() {
+        return ofVec2f(bounceX.position(), bounceY.position());
+    };
+    
+    void  velocity(ofVec2f value) {
+        bounceX.velocity(value.x);
+        bounceY.velocity(value.y);
+    };
+    
+    ofVec2f velocity() {
+        return ofVec2f(bounceX.velocity(), bounceY.velocity());
+    };
+    
+    ofxBounce bounceX;
+    ofxBounce bounceY;
+    
+};
+
