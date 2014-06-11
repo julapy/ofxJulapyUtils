@@ -8,10 +8,11 @@
 #include "ofMain.h"
 
 enum ofxSwipeDirection {
-    OFX_SWIPE_DIRECTION_UP      = 0,
-    OFX_SWIPE_DIRECTION_RIGHT   = 1,
-    OFX_SWIPE_DIRECTION_DOWN    = 2,
-    OFX_SWIPE_DIRECTION_LEFT    = 3
+    OFX_SWIPE_DIRECTION_UNDEFINED   = 0,
+    OFX_SWIPE_DIRECTION_UP          = 1,
+    OFX_SWIPE_DIRECTION_RIGHT       = 2,
+    OFX_SWIPE_DIRECTION_DOWN        = 3,
+    OFX_SWIPE_DIRECTION_LEFT        = 4
 };
 
 static const string ofxSwipePointTypeDown   = "down";
@@ -114,6 +115,18 @@ public:
     float getLength() {
         ofVec2f dir = getDirectionVector();
         return dir.length();
+    }
+    
+    float getDurationInSeconds() {
+        float durartion = 0;
+        if(points.size() < 2) {
+            return durartion;
+        }
+        
+        const ofxSwipePoint & p0 = points[0];                   // first point.
+        const ofxSwipePoint & p1 = points[points.size()-1];     // last point.
+        durartion = p1.timeSec - p0.timeSec;
+        return durartion;
     }
     
     //----------------------------------------
