@@ -16,3 +16,7 @@ enum ofDrawRectOutlineMode {
 void ofDrawRectOutline(const ofRectangle & rect,
                        int thickness=1,
                        ofDrawRectOutlineMode mode=ofDrawRectOutlineModeOuter);
+
+ofRectangle ofRectangleLerp(const ofRectangle & rectFrom,
+                            const ofRectangle & rectTo,
+                            float progress);
