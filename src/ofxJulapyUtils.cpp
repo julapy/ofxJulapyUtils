@@ -70,3 +70,23 @@ ofRectangle ofRectangleLerp(const ofRectangle & rectFrom,
     
     return rect;
 }
+
+ofRectangle ofRectangleErode(const ofRectangle & rect, float amount) {
+    
+    ofRectangle r = rect;
+    r.x += amount;
+    r.y += amount;
+    r.width -= amount * 2;
+    r.height -= amount * 2;
+    return r;
+}
+
+ofRectangle ofRectangleDilate(const ofRectangle & rect, float amount) {
+    
+    ofRectangle r = rect;
+    r.x -= amount;
+    r.y -= amount;
+    r.width += amount * 2;
+    r.height += amount * 2;
+    return r;
+}

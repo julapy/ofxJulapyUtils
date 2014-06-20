@@ -20,3 +20,7 @@ void ofDrawRectOutline(const ofRectangle & rect,
 ofRectangle ofRectangleLerp(const ofRectangle & rectFrom,
                             const ofRectangle & rectTo,
                             float progress);
+
+ofRectangle ofRectangleErode(const ofRectangle & rect, float amount);
+
+ofRectangle ofRectangleDilate(const ofRectangle & rect, float amount);
