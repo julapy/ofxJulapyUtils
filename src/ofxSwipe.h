@@ -75,10 +75,15 @@ public:
         return dir;
     }
     
-    ofxSwipeDirection getDirection() {
-        ofxSwipeDirection dir;
+    float getDirectionAngle() {
         ofVec2f dirVec = getDirectionVector();
         float angle = 180 - dirVec.angle(ofVec2f(0, 1));
+        return angle;
+    }
+    
+    ofxSwipeDirection getDirection() {
+        ofxSwipeDirection dir;
+        float angle = getDirectionAngle();
         if((angle > 315 && angle <= 360) || (angle >= 0 && angle <= 45)) {
             dir = OFX_SWIPE_DIRECTION_UP;
         } else if(angle > 45 && angle <= 135) {
