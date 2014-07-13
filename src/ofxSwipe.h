@@ -39,6 +39,7 @@ public:
     
     //----------------------------------------
     void touchDown(float x, float y) {
+        points.clear();
         points.push_back(ofxSwipePoint(x, y, ofGetElapsedTimef(), ofxSwipePointTypeDown));
         bSwipeStarted = true;
         bSwipeChanged = false;
