@@ -47,6 +47,9 @@ public:
     }
     
     void touchMoved(float x, float y) {
+        if(bSwipeStarted == false) {
+            return;
+        }
         if(points.back().point.x == x && points.back().point.y == y) {
             points.pop_back();  // remove duplicate points.
         }
@@ -55,11 +58,21 @@ public:
     }
     
     void touchUp(float x, float y) {
+        if(bSwipeStarted == false) {
+            return;
+        }
         if(points.back().point.x == x && points.back().point.y == y) {
             points.pop_back(); // remove duplicate points.
         }
         points.push_back(ofxSwipePoint(x, y, ofGetElapsedTimef(), ofxSwipePointTypeUp));
         bSwipeFinished = true;
+    }
+    
+    void touchCancel(float x, float y) {
+        points.clear();
+        bSwipeStarted = false;
+        bSwipeChanged = false;
+        bSwipeFinished = false;
     }
     
     //----------------------------------------
