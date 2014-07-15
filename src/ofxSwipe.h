@@ -41,38 +41,49 @@ public:
     void touchDown(float x, float y) {
         points.clear();
         points.push_back(ofxSwipePoint(x, y, ofGetElapsedTimef(), ofxSwipePointTypeDown));
+
+        bSwiping = true;
         bSwipeStarted = true;
-        bSwipeChanged = false;
-        bSwipeFinished = false;
     }
     
     void touchMoved(float x, float y) {
-        if(bSwipeStarted == false) {
+        if(bSwiping == false) {
             return;
         }
         if(points.back().point.x == x && points.back().point.y == y) {
             points.pop_back();  // remove duplicate points.
         }
         points.push_back(ofxSwipePoint(x, y, ofGetElapsedTimef(), ofxSwipePointTypeMoved));
+        
         bSwipeChanged = true;
     }
     
     void touchUp(float x, float y) {
-        if(bSwipeStarted == false) {
+        if(bSwiping == false) {
             return;
         }
         if(points.back().point.x == x && points.back().point.y == y) {
             points.pop_back(); // remove duplicate points.
         }
         points.push_back(ofxSwipePoint(x, y, ofGetElapsedTimef(), ofxSwipePointTypeUp));
+        
+        bSwiping = false;
         bSwipeFinished = true;
     }
     
     void touchCancel(float x, float y) {
         points.clear();
+
+        bSwiping = false;
+        bSwipeCancelled = true;
+    }
+    
+    //----------------------------------------
+    void update() {
         bSwipeStarted = false;
         bSwipeChanged = false;
         bSwipeFinished = false;
+        bSwipeCancelled = false;
     }
     
     //----------------------------------------
@@ -149,21 +160,27 @@ public:
     }
     
     //----------------------------------------
-    bool hasSwipeStarted() {
+    bool isSwiping() {
+        return bSwiping;
+    }
+    
+    bool isSwipeStartedOnThisFrame() {
         return bSwipeStarted;
     }
     
-    bool hasSwipeChanged() {
+    bool isSwipeChangedOnThisFrame() {
         return bSwipeChanged;
     }
     
-    bool hasSwipeFinished() {
+    bool isSwipeFinishedOnThisFrame() {
         return bSwipeFinished;
     }
     
     //----------------------------------------
     vector<ofxSwipePoint> points;
+    bool bSwiping = false;
     bool bSwipeStarted = false;
     bool bSwipeChanged = false;
     bool bSwipeFinished = false;
+    bool bSwipeCancelled = false;
 };
