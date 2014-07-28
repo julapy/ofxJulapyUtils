@@ -104,6 +104,14 @@ public:
         return bAnimationCompleteOnLastUpdate;
     }
     
+    bool hasFinishedAnimatingIn() {
+        return bAnimatingIn && bAnimationComplete;
+    }
+    
+    bool hasFinishedAnimatingOut() {
+        return bAnimatingOut && bAnimationComplete;
+    }
+ 
     float getProgress() {
         if(bAnimatingIn) {
             return progress;
