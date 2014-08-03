@@ -90,3 +90,17 @@ ofRectangle ofRectangleDilate(const ofRectangle & rect, float amount) {
     r.height += amount * 2;
     return r;
 }
+
+ofRectangle ofRectangleTransform(const ofRectangle & rect, const ofMatrix4x4 & mat) {
+    ofVec3f tl = rect.getTopLeft();
+    ofVec3f br = rect.getBottomRight();
+    
+    tl = mat.preMult(tl);
+    br = mat.preMult(br);
+    
+    ofRectangle r;
+    r.setPosition(tl);
+    r.growToInclude(br);
+    
+    return r;
+}

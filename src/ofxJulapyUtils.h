@@ -24,3 +24,5 @@ ofRectangle ofRectangleLerp(const ofRectangle & rectFrom,
 ofRectangle ofRectangleErode(const ofRectangle & rect, float amount);
 
 ofRectangle ofRectangleDilate(const ofRectangle & rect, float amount);
+
+ofRectangle ofRectangleTransform(const ofRectangle & rect, const ofMatrix4x4 & mat);
