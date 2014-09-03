@@ -104,3 +104,54 @@ ofRectangle ofRectangleTransform(const ofRectangle & rect, const ofMatrix4x4 & m
     
     return r;
 }
+
+bool ofRectangleEase(ofRectangle & rect,
+                     const ofRectangle & targetRect,
+                     float easeAmount) {
+    
+    static float const kEasingStop = 0.01;
+    
+    bool bChanged = false;
+    
+    ofVec2f rectP0(rect.x, rect.y);
+    ofVec2f rectP1(rect.x + rect.width, rect.y + rect.height);
+    
+    ofVec2f targetRectP0(targetRect.x, targetRect.y);
+    ofVec2f targetRectP1(targetRect.x + targetRect.width, targetRect.y + targetRect.height);
+    
+    bool bRectsAreEqual = true;
+    bRectsAreEqual = bRectsAreEqual && (rectP0.x == targetRectP0.x);
+    bRectsAreEqual = bRectsAreEqual && (rectP0.y == targetRectP0.y);
+    bRectsAreEqual = bRectsAreEqual && (rectP1.x == targetRectP1.x);
+    bRectsAreEqual = bRectsAreEqual && (rectP1.y == targetRectP1.y);
+    
+    if(bRectsAreEqual == false) {
+        rectP0 += (targetRectP0 - rectP0) * easeAmount;
+        rectP1 += (targetRectP1 - rectP1) * easeAmount;
+        
+        if(ABS(targetRectP0.x - rectP0.x) < kEasingStop) {
+            rectP0.x = targetRectP0.x;
+        }
+        
+        if(ABS(targetRectP0.y - rectP0.y) < kEasingStop) {
+            rectP0.y = targetRectP0.y;
+        }
+        
+        if(ABS(targetRectP1.x - rectP1.x) < kEasingStop) {
+            rectP1.x = targetRectP1.x;
+        }
+        
+        if(ABS(targetRectP1.y - rectP1.y) < kEasingStop) {
+            rectP1.y = targetRectP1.y;
+        }
+        
+        rect.x = rectP0.x;
+        rect.y = rectP0.y;
+        rect.width = rectP1.x - rectP0.x;
+        rect.height = rectP1.y - rectP0.y;
+        
+        bChanged = true;
+    }
+    
+    return bChanged;
+}
