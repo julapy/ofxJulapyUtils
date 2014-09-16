@@ -9,7 +9,11 @@
 #include "ofxSwipe.h"
 
 ofxSwipe::ofxSwipe() {
-    //
+    bSwiping = false;
+    bSwipeStarted = false;
+    bSwipeChanged = false;
+    bSwipeFinished = false;
+    bSwipeCancelled = false;
 }
 
 ofxSwipe::~ofxSwipe() {

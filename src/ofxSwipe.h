@@ -29,8 +29,8 @@ public:
         this->type = type;
     }
     ofVec2f point;
-    float timeSec = 0;
-    string type = "";
+    float timeSec;
+    string type;
 };
 
 //--------------------------------------------------------------
@@ -66,9 +66,9 @@ public:
     vector<ofxSwipePoint> points;
     ofRectangle swipeArea;
     
-    bool bSwiping = false;
-    bool bSwipeStarted = false;
-    bool bSwipeChanged = false;
-    bool bSwipeFinished = false;
-    bool bSwipeCancelled = false;
+    bool bSwiping;
+    bool bSwipeStarted;
+    bool bSwipeChanged;
+    bool bSwipeFinished;
+    bool bSwipeCancelled;
 };
