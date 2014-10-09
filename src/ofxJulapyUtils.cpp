@@ -51,22 +51,16 @@ ofRectangle ofRectangleLerp(const ofRectangle & rectFrom,
                             float progress) {
     
     ofVec3f r00 = rectFrom.getTopLeft();
-    ofVec3f r01 = rectFrom.getTopRight();
-    ofVec3f r02 = rectFrom.getBottomRight();
-    ofVec3f r03 = rectFrom.getBottomLeft();
+    ofVec3f r01 = rectFrom.getBottomRight();
 
     ofVec3f r10 = rectTo.getTopLeft();
-    ofVec3f r11 = rectTo.getTopRight();
-    ofVec3f r12 = rectTo.getBottomRight();
-    ofVec3f r13 = rectTo.getBottomLeft();
+    ofVec3f r11 = rectTo.getBottomRight();
     
     ofVec3f r20 = r00.interpolate(r10, progress);
     ofVec3f r21 = r01.interpolate(r11, progress);
-    ofVec3f r22 = r02.interpolate(r12, progress);
-    ofVec3f r23 = r03.interpolate(r13, progress);
     
     ofRectangle rect;
-    rect.set(r20, r22);
+    rect.set(r20, r21);
     
     return rect;
 }
