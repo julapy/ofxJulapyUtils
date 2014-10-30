@@ -149,3 +149,15 @@ bool ofRectangleEase(ofRectangle & rect,
     
     return bChanged;
 }
+
+float ofAngle(const ofVec3f & vec) {
+    ofVec2f v(vec);
+    return ofAngle(v);
+}
+
+float ofAngle(const ofVec2f & vec) {
+    float ang = vec.angle(ofVec2f(0, -1));
+    ang -= 180;
+    ang *= -1;
+    return ang;
+}
