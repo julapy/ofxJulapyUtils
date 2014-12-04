@@ -99,6 +99,27 @@ ofRectangle ofRectangleTransform(const ofRectangle & rect, const ofMatrix4x4 & m
     return r;
 }
 
+ofRectangle ofRectangleCrop(const ofRectangle & rect, const ofRectangle & rectCrop) {
+    ofRectangle r;
+    if(rect.intersects(rectCrop) == false) {
+        return r;
+    }
+    r = rect;
+    if(r.getMinX() < rectCrop.getMinX()) {
+        r.x = rectCrop.getMinX();
+    }
+    if(r.getMaxX() > rectCrop.getMaxX()) {
+        r.width = rectCrop.getMaxX() - r.x;
+    }
+    if(r.getMinY() < rectCrop.getMinY()) {
+        r.y = rectCrop.getMinY();
+    }
+    if(r.getMaxY() > rectCrop.getMaxY()) {
+        r.height = rectCrop.getMaxY() - r.y;
+    }
+    return r;
+}
+
 bool ofRectangleEase(ofRectangle & rect,
                      const ofRectangle & targetRect,
                      float easeAmount) {

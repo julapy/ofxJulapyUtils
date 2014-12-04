@@ -27,6 +27,8 @@ ofRectangle ofRectangleDilate(const ofRectangle & rect, float amount);
 
 ofRectangle ofRectangleTransform(const ofRectangle & rect, const ofMatrix4x4 & mat);
 
+ofRectangle ofRectangleCrop(const ofRectangle & rect, const ofRectangle & rectCrop);
+
 bool ofRectangleEase(ofRectangle & rect, const ofRectangle & targetRect, float easeAmount=0.1);
 
 float ofAngle(const ofVec3f & vec);
