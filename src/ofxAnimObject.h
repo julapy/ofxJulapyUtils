@@ -111,6 +111,22 @@ public:
     bool hasFinishedAnimatingOut() {
         return bAnimatingOut && bAnimationComplete;
     }
+    
+    int getTimeStartInMillis() {
+        return timeStartMs;
+    }
+    
+    float getTimeStartInSeconds() {
+        return (timeStartMs / 1000.0);
+    }
+    
+    int getTimeTotalInMillis() {
+        return timeTotalMs;
+    }
+    
+    int getTimeTotalInSeconds() {
+        return (timeTotalMs / 1000.0);
+    }
  
     float getProgress() {
         if(bAnimatingIn) {
