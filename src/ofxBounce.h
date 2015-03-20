@@ -29,7 +29,7 @@ public:
         k = value;
     };
     
-    float springconst() {
+    float springconst() const {
         return k;
     };
     
@@ -37,7 +37,7 @@ public:
         i = value;
     };
     
-    float inertia() {
+    float inertia() const {
         return i;
     };
     
@@ -45,7 +45,7 @@ public:
         c = value;
     };
     
-    float center() {
+    float center() const {
         return c;
     };
     
@@ -53,7 +53,7 @@ public:
         p = value;
     };
     
-    float position() {
+    float position() const {
         return p;
     };
     
@@ -61,7 +61,7 @@ public:
         v = value;
     };
     
-    float velocity() {
+    float velocity() const {
         return v;
     };
     
