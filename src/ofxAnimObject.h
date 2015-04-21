@@ -117,15 +117,15 @@ public:
     }
     
     float getTimeStartInSeconds() {
-        return (timeStartMs / 1000.0);
+        return (timeStartMs / 1000.0f);
     }
     
     int getTimeTotalInMillis() {
         return timeTotalMs;
     }
     
-    int getTimeTotalInSeconds() {
-        return (timeTotalMs / 1000.0);
+    float getTimeTotalInSeconds() {
+        return (timeTotalMs / 1000.0f);
     }
  
     float getProgress() {
