@@ -5,65 +5,31 @@
 
 #pragma once
 
+#include "ofMain.h"
+
 //-----------------------------------------
 class ofxBounce {
     
 public:
     
-    ofxBounce() {
-        k = 0.1;    // spring constant.
-        i = 0.9;    // inertia.
-        c = 0;      // center.
-        p = 0;      // position.
-        d = 0;      // difference = center - position.
-        v = 0;      // velocity.
-    };
+    ofxBounce();
     
-    void update() {
-        d = c - p;
-        v = v * i + d * k;
-        p += v;
-    };
+    void update();
     
-    void springconst(float value) {
-        k = value;
-    };
+    void springconst(float value);
+    float springconst() const;
     
-    float springconst() const {
-        return k;
-    };
+    void inertia(float value);
+    float inertia() const;
     
-    void inertia(float value) {
-        i = value;
-    };
+    void center(float value);
+    float center() const;
     
-    float inertia() const {
-        return i;
-    };
+    void position(float value);
+    float position() const;
     
-    void center(float value) {
-        c = value;
-    };
-    
-    float center() const {
-        return c;
-    };
-    
-    void position(float value) {
-        p = value;
-    };
-    
-    float position() const {
-        return p;
-    };
-    
-    void  velocity(float value) {
-        v = value;
-    };
-    
-    float velocity() const {
-        return v;
-    };
+    void  velocity(float value);
+    float velocity() const;
     
 private:
     
@@ -75,64 +41,3 @@ private:
     float v;  // velocity.
     
 };
-
-//-----------------------------------------
-class ofxBounce2D {
-    
-public:
-    
-    void update() {
-        bounceX.update();
-        bounceY.update();
-    };
-    
-    void springconst(float value) {
-        bounceX.springconst(value);
-        bounceY.springconst(value);
-    };
-    
-    float springconst() {
-        return bounceX.springconst();
-    };
-    
-    void inertia(float value) {
-        bounceX.inertia(value);
-        bounceY.inertia(value);
-    };
-    
-    float inertia() {
-        return bounceX.inertia();
-    };
-    
-    void center(ofVec2f value) {
-        bounceX.center(value.x);
-        bounceY.center(value.y);
-    };
-    
-    ofVec2f center() {
-        return ofVec2f(bounceX.center(), bounceY.center());
-    };
-    
-    void position(ofVec2f value) {
-        bounceX.position(value.x);
-        bounceY.position(value.y);
-    };
-    
-    ofVec2f position() {
-        return ofVec2f(bounceX.position(), bounceY.position());
-    };
-    
-    void  velocity(ofVec2f value) {
-        bounceX.velocity(value.x);
-        bounceY.velocity(value.y);
-    };
-    
-    ofVec2f velocity() {
-        return ofVec2f(bounceX.velocity(), bounceY.velocity());
-    };
-    
-    ofxBounce bounceX;
-    ofxBounce bounceY;
-    
-};
-
