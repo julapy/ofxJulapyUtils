@@ -69,7 +69,7 @@ void ofxScreenGrabUtil :: save()
 	sprintf( imageFileName, "frame_%02d%02d%02d_%05d.png", ofGetYear() % 1000, ofGetMonth(), ofGetDay(), counter );
 	imageFileNameStr.insert( imageFileNameStr.size(), imageFileName );
 
-	image.saveImage( imageFileNameStr );
+    ofSaveImage(image, imageFileNameStr);
 	
 	counter++;
 }
