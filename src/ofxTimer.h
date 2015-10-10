@@ -8,6 +8,10 @@
 
 #include "ofMain.h"
 
+//--------------------------------------------------------------
+double ofxTimerGetTimeElapsedSinceLastFrame();
+
+//--------------------------------------------------------------
 class ofxTimer {
     
 public:

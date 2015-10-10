@@ -8,6 +8,13 @@
 
 #include "ofxTimer.h"
 
+//--------------------------------------------------------------
+double ofxTimerGetTimeElapsedSinceLastFrame() {
+    float value = ofGetLastFrameTime();
+    return value;
+}
+
+//--------------------------------------------------------------
 ofxTimer::ofxTimer() {
     reset();
 }
@@ -58,7 +65,7 @@ void ofxTimer::update(double optionalTimeElapsedSinceLastUpdateInSeconds) {
     
     double timeElapsedSinceLastUpdateInSeconds = optionalTimeElapsedSinceLastUpdateInSeconds;
     if(timeElapsedSinceLastUpdateInSeconds < 0.0) {
-        timeElapsedSinceLastUpdateInSeconds = ofGetLastFrameTime();
+        timeElapsedSinceLastUpdateInSeconds = ofxTimerGetTimeElapsedSinceLastFrame();
     }
     
     timeRunningInSeconds += timeElapsedSinceLastUpdateInSeconds;
