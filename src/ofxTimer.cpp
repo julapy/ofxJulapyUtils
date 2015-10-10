@@ -23,11 +23,30 @@ ofxTimer::~ofxTimer() {
     //
 }
 
-void ofxTimer::start(double timeDurationInSeconds) {
+void ofxTimer::start(double _timeDurationInSeconds, double _optionalTimeOffsetInSeconds) {
     reset();
     
-    this->timeDurationInSeconds = timeDurationInSeconds;
-    bRunning = true;
+    bStarted = true;
+    
+    timeDurationInSeconds = _timeDurationInSeconds;
+    if(timeDurationInSeconds <= 0.0) {
+        
+        // if timer duration is zero or less the zero,
+        // the timer finishes straight away,
+        // without update having to be called.
+        
+        timeDurationInSeconds = 0.0;
+        progress = 1.0;
+        bFinished = true;
+        bFinishedOnLastUpdate = true;
+        
+        return;
+    }
+
+    timeRunningInSeconds = _optionalTimeOffsetInSeconds;
+    if(timeRunningInSeconds < 0.0) {
+        timeRunningInSeconds = 0.0;
+    }
 }
 
 void ofxTimer::stop() {
@@ -38,79 +57,80 @@ void ofxTimer::reset() {
     timeRunningInSeconds = 0.0;
     timeDurationInSeconds = 0.0;
     progress = 0;
-    bRunning = false;
+    bStarted = false;
     bPaused = false;
     bFinished = false;
-    bFlagAsFinishedOnNextUpdate = false;
+    bFinishedOnLastUpdate = false;
 }
 
 void ofxTimer::setPaused(bool value) {
     bPaused = value;
 }
 
-void ofxTimer::update(double optionalTimeElapsedSinceLastUpdateInSeconds) {
+void ofxTimer::update(double _optionalTimeElapsedSinceLastUpdateInSeconds) {
 
-    if(bRunning == false) {
+    bFinishedOnLastUpdate = false;
+    
+    if(isRunning() == false) {
         return;
     }
     
-    if(bPaused == true) {
+    if(isPaused() == true) {
         return;
     }
     
-    if(bFlagAsFinishedOnNextUpdate == true) {
-        bFlagAsFinishedOnNextUpdate = false;
-        bFinished = true;
-    }
-    
-    double timeElapsedSinceLastUpdateInSeconds = optionalTimeElapsedSinceLastUpdateInSeconds;
+    double timeElapsedSinceLastUpdateInSeconds = _optionalTimeElapsedSinceLastUpdateInSeconds;
     if(timeElapsedSinceLastUpdateInSeconds < 0.0) {
         timeElapsedSinceLastUpdateInSeconds = ofxTimerGetTimeElapsedSinceLastFrame();
     }
     
     timeRunningInSeconds += timeElapsedSinceLastUpdateInSeconds;
+    if(timeRunningInSeconds > timeDurationInSeconds) {
+        timeRunningInSeconds = timeDurationInSeconds;
+    }
     
-    progress = timeRunningInSeconds/ timeDurationInSeconds;
+    progress = timeRunningInSeconds / timeDurationInSeconds;
     
     bool bFinishedNew = (progress >= 1.0);
 
-    bFlagAsFinishedOnNextUpdate = true;
-    bFlagAsFinishedOnNextUpdate = bFlagAsFinishedOnNextUpdate && (bFinished == false);
-    bFlagAsFinishedOnNextUpdate = bFlagAsFinishedOnNextUpdate && (bFinishedNew == true);
+    bFinishedOnLastUpdate = true;
+    bFinishedOnLastUpdate = bFinishedOnLastUpdate && (bFinished == false);
+    bFinishedOnLastUpdate = bFinishedOnLastUpdate && (bFinishedNew == true);
+    
+    bFinished = bFinishedNew;
 }
 
-bool ofxTimer::isRunning() {
+bool ofxTimer::isRunning() const {
+    bool bRunning = true;
+    bRunning = bRunning && (bStarted == true);
+    bRunning = bRunning && (bFinished == false);
     return bRunning;
 }
 
-bool ofxTimer::hasFinished() {
+bool ofxTimer::isPaused() const {
+    return bPaused;
+}
+
+bool ofxTimer::hasStarted() const {
+    return bStarted;
+}
+
+bool ofxTimer::hasFinished() const {
     return bFinished;
 }
 
-double ofxTimer::getTimeRunningInSeconds() {
+bool ofxTimer::hasFinishedOnLastUpdate() const {
+    return bFinishedOnLastUpdate;
+}
+
+double ofxTimer::getTimeRunningInSeconds() const {
     return timeRunningInSeconds;
 }
 
-double ofxTimer::getTimeRunningInSecondsCapped() {
-    float value = timeRunningInSeconds;
-    if(value > timeDurationInSeconds) {
-        value = timeDurationInSeconds;
-    }
-    return value;
-}
-
-double ofxTimer::getTimeDurationInSeconds() {
+double ofxTimer::getTimeDurationInSeconds() const {
     return timeDurationInSeconds;
 }
 
-double ofxTimer::getProgress() {
+double ofxTimer::getProgress() const {
     return progress;
-}
-
-double ofxTimer::getProgressCapped() {
-    float value = progress;
-    if(value > 1.0) {
-        value = 1.0;
-    }
-    return value;
 }
